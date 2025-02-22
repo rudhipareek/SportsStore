@@ -1,24 +1,126 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center">Available Products</h2>
-    <div class="row">
+<!-- Product Listing Header -->
+<div class="product-header py-5">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center text-primary">Our Collection</h2>
+        <div class="separator-line mx-auto"></div>
+    </div>
+</div>
+
+<!-- Products Grid -->
+<div class="container py-4">
+    <div class="row g-4">
         {% for product in products %}
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm">
-                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="text-muted">{{ product.description|truncatewords:10 }}</p>
-                    <p class="text-success"><strong>₹{{ product.price }}</strong></p>
-                    <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary">View Details</a>
+        <div class="col-md-4 col-sm-6">
+            <div class="product-card h-100 rounded-4 overflow-hidden border-0 shadow-sm position-relative">
+                <div class="product-image-container">
+                    <img src="{{ product.image.url }}" class="product-image" alt="{{ product.name }}">
+                    <div class="product-overlay d-flex align-items-center justify-content-center">
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-light btn-sm rounded-pill me-2">
+                            <i class="fas fa-eye"></i> Quick View
+                        </a>
+                        <button class="btn btn-primary btn-sm rounded-pill">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info p-3">
+                    <h5 class="product-title">{{ product.name }}</h5>
+                    <p class="product-desc text-muted small mb-2">{{ product.description|truncatewords:10 }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="product-price fw-bold text-success">₹{{ product.price }}</span>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary btn-sm rounded-pill">Details</a>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-center text-muted">No products available.</p>
+        <div class="col-12 py-5 text-center">
+            <div class="empty-state">
+                <i class="fas fa-box-open display-1 text-muted mb-3"></i>
+                <h3 class="text-muted">No products available</h3>
+                <p class="text-muted">Check back soon for new arrivals!</p>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>
+
+<!-- CSS to be added to your stylesheet -->
+<style>
+    .product-header {
+        background-color: #f8f9fa;
+    }
+    
+    .separator-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #0056b3, #00a0e3);
+        border-radius: 2px;
+        margin-bottom: 2rem;
+    }
+    
+    .product-card {
+        transition: all 0.3s ease;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+    
+    .product-image-container {
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image {
+        transform: scale(1.1);
+    }
+    
+    .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .product-card:hover .product-overlay {
+        opacity: 1;
+    }
+    
+    .product-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        height: 48px;
+        overflow: hidden;
+    }
+    
+    .product-desc {
+        height: 40px;
+        overflow: hidden;
+    }
+    
+    .product-price {
+        font-size: 1.1rem;
+    }
+    
+    .empty-state {
+        padding: 4rem 0;
+    }
+</style>
 {% endblock %}

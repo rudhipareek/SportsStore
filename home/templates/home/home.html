@@ -1,42 +1,135 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-<div class="container-fluid p-5 text-center bg-primary text-white">
-    <h1 class="display-3">Welcome to SportStore</h1>
-    <p class="lead">Find the best sports & fitness gear here.</p>
-    <a href="{% url 'product_list' %}" class="btn btn-light btn-lg shadow">Shop Now</a>
-</div>
-
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Shop by Category</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm text-center">
-                <img src="https://source.unsplash.com/400x300/?gym" class="card-img-top" alt="Gym Equipment">
-                <div class="card-body">
-                    <h5 class="card-title">Gym Equipment</h5>
-                    <a href="{% url 'product_list' %}" class="btn btn-primary">Explore</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm text-center">
-                <img src="https://source.unsplash.com/400x300/?sportswear" class="card-img-top" alt="Clothing">
-                <div class="card-body">
-                    <h5 class="card-title">Clothing</h5>
-                    <a href="{% url 'product_list' %}" class="btn btn-primary">Explore</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm text-center">
-                <img src="https://source.unsplash.com/400x300/?shoes" class="card-img-top" alt="Shoes">
-                <div class="card-body">
-                    <h5 class="card-title">Shoes</h5>
-                    <a href="{% url 'product_list' %}" class="btn btn-primary">Explore</a>
-                </div>
+<!-- Hero Section with Gradient Background and Parallax Effect -->
+<div class="hero-section position-relative overflow-hidden text-white">
+    <div class="container py-5">
+        <div class="row py-5">
+            <div class="col-lg-6 my-5">
+                <h1 class="display-3 fw-bold text-shadow">Elevate Your Game</h1>
+                <p class="lead mb-4">Premium sports & fitness gear for champions at heart</p>
+                <a href="{% url 'product_list' %}" class="btn btn-light btn-lg shadow-lg rounded-pill px-4">
+                    Shop Collection <i class="fas fa-arrow-right ms-2"></i>
+                </a>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Featured Categories Section -->
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="display-5 fw-bold text-primary mb-2">Shop by Category</h2>
+            <div class="separator-line mx-auto"></div>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="category-card">
+                <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
+                    <img src="https://source.unsplash.com/600x400/?gym,equipment" class="img-fluid category-img" alt="Gym Equipment">
+                    <div class="category-overlay d-flex align-items-center justify-content-center">
+                        <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
+                    </div>
+                </div>
+                <h4 class="fw-bold text-center">Gym Equipment</h4>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="category-card">
+                <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
+                    <img src="https://source.unsplash.com/600x400/?sportswear,athletic" class="img-fluid category-img" alt="Clothing">
+                    <div class="category-overlay d-flex align-items-center justify-content-center">
+                        <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
+                    </div>
+                </div>
+                <h4 class="fw-bold text-center">Sportswear</h4>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="category-card">
+                <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
+                    <img src="https://source.unsplash.com/600x400/?running,shoes" class="img-fluid category-img" alt="Shoes">
+                    <div class="category-overlay d-flex align-items-center justify-content-center">
+                        <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
+                    </div>
+                </div>
+                <h4 class="fw-bold text-center">Athletic Footwear</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS to be added to your stylesheet -->
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #0056b3 0%, #00a0e3 100%);
+        padding: 80px 0;
+        position: relative;
+    }
+    
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://source.unsplash.com/1600x800/?sports,action') center/cover no-repeat;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    
+    .hero-section > * {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .separator-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #0056b3, #00a0e3);
+        border-radius: 2px;
+        margin-bottom: 2rem;
+    }
+    
+    .category-card {
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .category-img {
+        transition: transform 0.5s ease;
+    }
+    
+    .category-card:hover .category-img {
+        transform: scale(1.1);
+    }
+    
+    .category-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 86, 179, 0.4);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .category-card:hover .category-overlay {
+        opacity: 1;
+    }
+</style>
 {% endblock %}

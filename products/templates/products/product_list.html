@@ -4,7 +4,15 @@
 <!-- Product Listing Header -->
 <div class="product-header py-5">
     <div class="container">
-        <h2 class="display-5 fw-bold text-center text-primary">Our Collection</h2>
+        <!--h2 class="display-5 fw-bold text-center text-primary">Our Collection</h2 -->
+        <h2 class="display-5 fw-bold text-center text-primary">
+    {% if selected_category and selected_category != 'all-products' %}
+        {{ selected_category }} Collection
+    {% else %}
+        Our Collection
+    {% endif %}
+</h2>
+
         <div class="separator-line mx-auto"></div>
     </div>
 </div>

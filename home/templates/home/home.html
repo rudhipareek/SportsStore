@@ -66,10 +66,17 @@
 
 <!-- CSS to be added to your stylesheet -->
 <style>
+    /* Ensure the navbar stays above everything */
+    .navbar {
+        position: relative;
+        z-index: 1050; /* High z-index to keep navbar clickable */
+    }
+
     .hero-section {
         background: linear-gradient(135deg, #0056b3 0%, #00a0e3 100%);
         padding: 80px 0;
-        position: relative;
+        position: relative; /* Prevents overlap issues */
+        z-index: 1; /* Ensures hero section does not block navbar */
     }
     
     .hero-section::before {
@@ -81,12 +88,7 @@
         height: 100%;
         background: url('https://source.unsplash.com/1600x800/?sports,action') center/cover no-repeat;
         opacity: 0.2;
-        z-index: 0;
-    }
-    
-    .hero-section > * {
-        position: relative;
-        z-index: 1;
+        z-index: -1; /* Moves background behind everything */
     }
     
     .text-shadow {

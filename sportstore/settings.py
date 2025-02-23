@@ -44,8 +44,8 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.users,backend.ModelBackend'
-    #
+    'django.contrib.auth.backends.ModelBackend'
+    
 ]
 
 MIDDLEWARE = [

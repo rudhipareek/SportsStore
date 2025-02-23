@@ -149,15 +149,18 @@
                             <i class="fas fa-shopping-cart"></i>
                             <span class="badge bg-primary rounded-pill icon-badge">3</span>
                         </a>
-                        <a href="#" class="btn btn-outline-primary rounded-pill ms-2">
-                            <i class="fas fa-user me-1"></i> Login
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}" class="btn btn-outline-danger rounded-pill ms-2">Logout</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill ms-2">Login</a>
+                            <a href="{% url 'register' %}" class="btn btn-primary rounded-pill ms-2">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    
+
     <!-- Main Content -->
     <main>
         {% block content %}
@@ -173,61 +176,12 @@
                         <i class="fas fa-running me-2"></i>SportStore
                     </h5>
                     <p class="text-muted">Your premium destination for high-quality sports and fitness equipment. Excellence in every move.</p>
-                    <div class="d-flex social-icons">
-                        <a href="#" class="me-3 text-secondary fs-5"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="me-3 text-secondary fs-5"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="me-3 text-secondary fs-5"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-secondary fs-5"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-6">
-                    <h6 class="fw-bold mb-3">Shop</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">All Products</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Gym Equipment</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Sportswear</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Athletic Footwear</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Accessories</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-6">
-                    <h6 class="fw-bold mb-3">Company</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">About Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Careers</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Blog</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Press</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h6 class="fw-bold mb-3">Subscribe to our Newsletter</h6>
-                    <p class="text-muted small">Stay updated with the latest products, offers and fitness tips.</p>
-                    <form class="mb-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Your email address">
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
-                        </div>
-                    </form>
-                    <div class="d-flex align-items-center">
-                        <img src="https://source.unsplash.com/60x30/?payment,cards" class="img-fluid me-2" alt="Payment Methods">
-                        <span class="text-muted small">Secure Payment Options</span>
-                    </div>
                 </div>
             </div>
             <hr class="my-4">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
                     <p class="text-muted small mb-0">© 2025 SportStore. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="#" class="text-muted small">Privacy Policy</a></li>
-                        <li class="list-inline-item"><span class="text-muted">·</span></li>
-                        <li class="list-inline-item"><a href="#" class="text-muted small">Terms of Service</a></li>
-                        <li class="list-inline-item"><span class="text-muted">·</span></li>
-                        <li class="list-inline-item"><a href="#" class="text-muted small">Shipping Policy</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -253,11 +207,6 @@
                 
                 animatedElements.forEach(element => {
                     observer.observe(element);
-                });
-            } else {
-                // Fallback for browsers that don't support IntersectionObserver
-                animatedElements.forEach(element => {
-                    element.classList.add('animated');
                 });
             }
         });

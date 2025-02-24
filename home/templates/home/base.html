@@ -135,14 +135,13 @@
                         </li> 
                     </ul>
                     <div class="d-flex align-items-center">
-                        <form class="d-flex me-3">
-                            <div class="input-group">
-                                <input class="form-control border-end-0" type="search" placeholder="Search products...">
-                                <button class="btn btn-outline-primary border-start-0" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
+                    
+                        <form action="{% url 'product_list' %}" method="GET" class="d-flex">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search for products..." 
+                                value="{{ search_query|default:'' }}" aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
+
                         <a href="#" class="text-dark me-3 navbar-icon">
                             <i class="fas fa-heart"></i>
                             <span class="badge bg-danger rounded-pill icon-badge">2</span>

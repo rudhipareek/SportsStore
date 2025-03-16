@@ -151,13 +151,13 @@
                             <span class="badge bg-primary rounded-pill icon-badge">3</span>
                         </a>
                         {% if user.is_authenticated %}
-                            <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                            <form method="POST" action="{% url 'account_logout' %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Logout</button>
                             </form>                            
                         {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill ms-2">Login</a>
-                            <a href="{% url 'register' %}" class="btn btn-primary rounded-pill ms-2">Register</a>
+                            <a href="{% url 'account_login' %}" class="btn btn-outline-primary rounded-pill ms-2">Login</a>
+                            <a href="{% url 'account_signup' %}" class="btn btn-primary rounded-pill ms-2">Register</a>
                         {% endif %}
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 {% extends 'home/base.html' %}
 {% load widget_tweaks %}
-
 {% block content %}
 <style>
     :root {
@@ -15,14 +14,14 @@
         background-color: var(--bg-color);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     }
-    .reset-wrapper {
+    .signup-wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
         min-height: 80vh;
         padding: 20px;
     }
-    .reset-container {
+    .signup-container {
         width: 100%;
         max-width: 480px;
         padding: 40px;
@@ -30,17 +29,17 @@
         background-color: var(--card-bg);
         box-shadow: var(--shadow);
     }
-    .reset-header {
+    .signup-header {
         text-align: center;
         margin-bottom: 35px;
     }
-    .reset-header h1 {
+    .signup-header h1 {
         font-size: 24px;
         font-weight: 600;
         color: var(--text-dark);
         margin-bottom: 8px;
     }
-    .reset-header p {
+    .signup-header p {
         color: var(--text-light);
         font-size: 15px;
         margin: 0;
@@ -83,7 +82,7 @@
         margin-top: 6px;
         display: block;
     }
-    .btn-reset {
+    .btn-signup {
         width: 100%;
         padding: 14px;
         background: linear-gradient(95deg, var(--primary), #6e8efb);
@@ -96,48 +95,113 @@
         transition: all 0.3s ease;
         box-shadow: 0 5px 15px rgba(58, 109, 240, 0.2);
     }
-    .btn-reset:hover {
+    .btn-signup:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(58, 109, 240, 0.3);
     }
-    .btn-reset:active {
+    .btn-signup:active {
         transform: translateY(1px);
     }
-    .login-footer {
+    .divider {
+        display: flex;
+        align-items: center;
+        margin: 25px 0;
+    }
+    
+    .divider::before, .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background-color: #e0e6f0;
+    }
+    
+    .divider-text {
+        padding: 0 15px;
+        color: var(--text-light);
+        font-size: 13px;
+    }
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 10px;
+        margin-top: 3px;
+    }
+    .checkbox-group label {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.5;
+    }
+    .signup-footer {
         text-align: center;
         margin-top: 25px;
         font-size: 14px;
         color: var(--text-light);
     }
-    .login-footer a {
+    .signup-footer a {
         color: var(--primary);
         text-decoration: none;
         font-weight: 500;
     }
 </style>
-
-<div class="reset-wrapper">
-    <div class="reset-container">
-        <div class="reset-header">
-            <h1>Reset Your Password</h1>
-            <p>Enter your email to receive a password reset link</p>
+<div class="signup-wrapper">
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create an Account</h1>
+            <p>Fill in your details to get started</p>
         </div>
         
         <form method="post">
             {% csrf_token %}
             
             <div class="form-group">
-                <label for="{{ form.email.id_for_label }}">Email Address</label>
-                {% render_field form.email class="inpfm" placeholder="Enter your email address" %}
-                {% if form.email.errors %}
-                    <span class="error-text">{{ form.email.errors }}</span>
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                {% render_field form.username class="inpfm" placeholder="Choose a username" %}
+                {% if form.username.errors %}
+                <span class="error-text">{{ form.username.errors }}</span>
                 {% endif %}
             </div>
             
-            <button type="submit" class="btn-reset">Send Reset Link</button>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email Address</label>
+                {% render_field form.email class="inpfm" placeholder="Enter your email address" %}
+                {% if form.email.errors %}
+                <span class="error-text">{{ form.email.errors }}</span>
+                {% endif %}
+            </div>
             
-            <div class="login-footer">
-                Remember your password? <a href="{% url 'account_login' %}">Back to login</a>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                {% render_field form.password1 class="inpfm" placeholder="Create a password" %}
+                {% if form.password1.errors %}
+                <span class="error-text">{{ form.password1.errors }}</span>
+                {% endif %}
+                <span class="error-text">{{ form.password1.help_text }}</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                {% render_field form.password2 class="inpfm" placeholder="Confirm your password" %}
+                {% if form.password2.errors %}
+                <span class="error-text">{{ form.password2.errors }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="/terms" style="color: var(--primary);">Terms of Service</a> and <a href="/privacy" style="color: var(--primary);">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="btn-signup">Create Account</button>
+            
+            <div class="divider">
+                <span class="divider-text">OR</span>
+            </div>
+            
+            <div class="signup-footer">
+                Already have an account? <a href="{% url 'account_login' %}">Sign in</a>
             </div>
         </form>
     </div>

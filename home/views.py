@@ -8,3 +8,13 @@ def about(request):
 
 def contact(request):
     return render(request, 'home/contact.html')
+
+
+########
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def logout_confirm_view(request):
+    return render(request, 'account/logout.html')  # This is the logout confirmation page
+

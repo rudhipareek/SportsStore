@@ -1,11 +1,170 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-<div class="container py-5">
+<style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #f72585;
+        --success-color: #4cc9a4;
+        --warning-color: #ff9e00;
+        --light-bg: #f8f9fa;
+        --dark-text: #212529;
+        --gray-text: #6c757d;
+    }
+    
+    .product-wrapper {
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+    
+    .product-image-wrapper {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-image-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .product-image-wrapper img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    .product-badge {
+        background: linear-gradient(135deg, var(--accent-color), #b5179e);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 0.8rem;
+    }
+    
+    .breadcrumb-item a {
+        color: var(--primary-color);
+        transition: color 0.2s ease;
+    }
+    
+    .breadcrumb-item a:hover {
+        color: var(--secondary-color);
+    }
+    
+    .product-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+    }
+    
+    .ratings {
+        font-size: 1.1rem;
+    }
+    
+    .product-price-wrapper {
+        padding: 1rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .current-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--success-color);
+    }
+    
+    .original-price {
+        font-size: 1.1rem;
+        color: var(--gray-text);
+    }
+    
+    .save-badge {
+        background: linear-gradient(135deg, var(--accent-color), #b5179e);
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+    }
+    
+    .product-description {
+        line-height: 1.7;
+    }
+    
+    .quantity-selector {
+        height: 48px;
+    }
+    
+    .quantity-selector .btn {
+        width: 40px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .quantity-selector input {
+        text-align: center;
+        font-weight: 600;
+        border-left: 0;
+        border-right: 0;
+    }
+    
+    .add-to-cart-btn {
+        height: 48px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        background: linear-gradient(135deg, var(--warning-color), #ff7300);
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .add-to-cart-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 158, 0, 0.3);
+    }
+    
+    .view-cart-btn {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .view-cart-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .product-meta {
+        background: var(--light-bg);
+        border-radius: 12px;
+        margin-top: 2rem;
+    }
+    
+    .feature-icon {
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        width: 24px;
+        text-align: center;
+    }
+    
+    .feature-text {
+        font-weight: 500;
+    }
+</style>
+
+<div class="container product-wrapper">
     <div class="row g-5">
         <!-- Product Image Gallery -->
         <div class="col-lg-6">
-            <div class="product-image-wrapper position-relative rounded-4 overflow-hidden shadow-lg">
+            <div class="product-image-wrapper">
                 <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
                 <div class="product-badge position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill text-white">
                     New Arrival
@@ -24,7 +183,7 @@
                     </ol>
                 </nav>
                 
-                <h1 class="display-6 fw-bold text-primary mb-3">{{ product.name }}</h1>
+                <h1 class="product-title mb-3">{{ product.name }}</h1>
                 
                 <div class="mb-3">
                     <div class="d-flex align-items-center">
@@ -35,16 +194,18 @@
                             <i class="fas fa-star text-warning"></i>
                             <i class="fas fa-star-half-alt text-warning"></i>
                         </div>
-                        <span class="text-muted small">(24 reviews)</span>
+                        <span class="text-muted small ms-2">(24 reviews)</span>
                     </div>
                 </div>
                 
                 <div class="product-price-wrapper mb-4">
-                    <h2 class="text-success fw-bold mb-0">₹{{ product.price }}</h2>
-                    <p class="text-muted small">
-                        <span class="text-decoration-line-through">₹{{ product.price|floatformat:0|add:"1500" }}</span> 
-                        <span class="badge bg-danger ms-2">Save ₹1,500</span>
-                    </p>
+                    <div class="d-flex align-items-center">
+                        <h2 class="current-price mb-0">₹{{ product.price }}</h2>
+                        <div class="ms-3">
+                            <span class="original-price text-decoration-line-through">₹{{ product.price|floatformat:0|add:"1500" }}</span> 
+                            <span class="save-badge text-white ms-2">Save ₹1,500</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="product-description mb-4">
@@ -52,41 +213,62 @@
                     <p class="text-muted">{{ product.description }}</p>
                 </div>
                 
-                <div class="product-actions mb-4">
-                    <div class="row g-2">
+                <!-- Add to Cart Form -->
+                <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
                         <div class="col-md-4 col-6">
                             <div class="quantity-selector input-group">
-                                <button class="btn btn-outline-secondary" type="button">−</button>
-                                <input type="text" class="form-control text-center" value="1">
-                                <button class="btn btn-outline-secondary" type="button">+</button>
+                                <button class="btn btn-outline-secondary" type="button" id="decrease">−</button>
+                                <input type="number" class="form-control" value="1" name="quantity" id="quantity" min="1">
+                                <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
                             </div>
                         </div>
                         <div class="col-md-8 col-6">
-                            <button class="btn btn-warning btn-lg w-100 shadow-sm">
+                            <button class="btn add-to-cart-btn w-100 shadow-sm" type="submit">
                                 <i class="fas fa-shopping-cart me-2"></i> Add to Cart
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
+
+                <script>
+                    // JavaScript to update quantity when buttons are clicked
+                    document.getElementById("increase").addEventListener("click", function() {
+                        var quantityInput = document.getElementById("quantity");
+                        var currentValue = parseInt(quantityInput.value);
+                        quantityInput.value = currentValue + 1;
+                    });
+
+                    document.getElementById("decrease").addEventListener("click", function() {
+                        var quantityInput = document.getElementById("quantity");
+                        var currentValue = parseInt(quantityInput.value);
+                        if (currentValue > 1) {
+                            quantityInput.value = currentValue - 1;
+                        }
+                    });
+                </script>
+
                 
-                <div class="product-meta p-4 rounded-3 bg-light">
+                
+                <div class="product-meta p-4">
                     <div class="row g-3">
                         <div class="col-md-4 col-6">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-truck text-primary me-2"></i>
-                                <span class="small">Free Shipping</span>
+                                <i class="fas fa-truck feature-icon me-2"></i>
+                                <span class="feature-text">Free Shipping</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-6">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-undo text-primary me-2"></i>
-                                <span class="small">30-Day Returns</span>
+                                <i class="fas fa-undo feature-icon me-2"></i>
+                                <span class="feature-text">30-Day Returns</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-6">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-shield-alt text-primary me-2"></i>
-                                <span class="small">2-Year Warranty</span>
+                                <i class="fas fa-shield-alt feature-icon me-2"></i>
+                                <span class="feature-text">2-Year Warranty</span>
                             </div>
                         </div>
                     </div>
@@ -95,41 +277,5 @@
         </div>
     </div>
 </div>
-
-<!-- CSS to be added to your stylesheet -->
-<style>
-    .product-image-wrapper {
-        background-color: #f8f9fa;
-    }
-    
-    .product-main-image {
-        transition: transform 0.5s ease;
-    }
-    
-    .product-image-wrapper:hover .product-main-image {
-        transform: scale(1.05);
-    }
-    
-    .product-badge {
-        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-    
-    .product-price-wrapper {
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .quantity-selector input {
-        max-width: 50px;
-    }
-    
-    .product-meta {
-        border-left: 4px solid #0d6efd;
-    }
-</style>
-
-<!-- Add FontAwesome to your base template if not already included -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
 {% endblock %}
+

@@ -1,0 +1,71 @@
+{% extends 'cart/base_checkout.html' %}
+
+{% block title %}Order Confirmation - MyShop{% endblock %}
+
+{% block content %}
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .confirmation {
+            display: none;
+        }
+        h2 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        .order-details {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .notice {
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+        }
+    </style>
+
+    <div id="loadingScreen">
+        <p class="loading">Processing your order... Please wait.</p>
+        <div class="loader"></div>
+    </div>
+
+    <div id="confirmationScreen" class="confirmation">
+        <h2>✅ Order Confirmed!</h2>
+        <p class="order-details">Your order #{{ order_id }} has been successfully placed.</p>
+        <p class="order-details">Estimated delivery: 5-7 business days.</p>
+        <p class="order-details">A confirmation email has been sent to your registered email.</p>
+        <a href="{% url 'product_list' %}" class="btn">Continue Shopping</a>
+        <p class="notice">(This is a demo website. No actual orders have been placed.)</p>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('confirmationScreen').style.display = 'block';
+        }, 2500); // Simulates order processing time
+    </script>
+{% endblock %}

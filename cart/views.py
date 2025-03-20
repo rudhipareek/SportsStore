@@ -59,4 +59,8 @@ def update_cart(request, product_id):
 
     return redirect('cart:view_cart')  # Redirect back to cart page
 
+def order_confirmation(request):
+    order_id = "123456"
+    return render(request, 'cart/order-confirmation.html', {'order_id': order_id})
+
 

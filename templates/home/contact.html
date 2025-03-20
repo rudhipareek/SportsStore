@@ -2,36 +2,88 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="text-center">Contact Us</h2>
-    <p class="text-center lead">Have questions? Get in touch with us!</p>
-
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Our Office</h3>
-            <p>123 Sports Street, Fitness City, India</p>
-            <h3>Email</h3>
-            <p><a href="mailto:support@sportsstore.com">support@sportsstore.com</a></p>
-            <h3>Phone</h3>
-            <p>+91 98765 43210</p>
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-3">Contact Information</h2>
+            <p class="lead text-muted">We value your inquiries and are committed to providing timely assistance.</p>
         </div>
-        <div class="col-md-6">
-            <h3>Send Us a Message</h3>
-            <form method="POST">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label">Your Name</label>
-                    <input type="text" class="form-control" name="name" required>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow">
+                <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5 bg-primary text-white p-4 p-md-5">
+                            <h3 class="fw-bold mb-4">SportStore</h3>
+                            
+                            <div class="mb-4">
+                                <h5 class="fw-semibold mb-2">Address</h5>
+                                <div class="d-flex">
+                                    <i class="bi bi-geo-alt me-3"></i>
+                                    <p class="mb-0">123 Sports Street<br>Fitness City, 400001<br>India</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="fw-semibold mb-2">Contact</h5>
+                                <div class="d-flex mb-2">
+                                    <i class="bi bi-envelope me-3"></i>
+                                    <p class="mb-0"><a href="mailto:sportstore.hub@gmail.com" class="text-white text-decoration-none">sportstore.hub@gmail.com</a></p>
+                                </div>
+                                <div class="d-flex">
+                                    <i class="bi bi-telephone me-3"></i>
+                                    <p class="mb-0">+91 98765 43210</p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="fw-semibold mb-2">Connect</h5>
+                                <div class="d-flex mt-3">
+                                    <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-5"></i></a>
+                                    <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-5"></i></a>
+                                    <a href="#" class="text-white me-3"><i class="bi bi-twitter-x fs-5"></i></a>
+                                    <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-7 p-4 p-md-5">
+                            <h3 class="fw-bold mb-4">Hours of Operation</h3>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="ps-0 fw-semibold">Monday - Friday</td>
+                                            <td class="text-end pe-0">10:00 AM - 8:00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-0 fw-semibold">Saturday</td>
+                                            <td class="text-end pe-0">10:00 AM - 6:00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-0 fw-semibold">Sunday</td>
+                                            <td class="text-end pe-0">11:00 AM - 5:00 PM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <h4 class="fw-bold mb-3">Customer Support</h4>
+                            <p class="mb-1">For product inquiries, order status, or technical support:</p>
+                            <p class="mb-4"><strong>Response Time:</strong> Within 24 hours on business days</p>
+                            
+                            <h4 class="fw-bold mb-3">Corporate Inquiries</h4>
+                            <p class="mb-0">For business partnerships, wholesale opportunities, or press inquiries, please email us with the subject line "Corporate Inquiry".</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Your Email</label>
-                    <input type="email" class="form-control" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Message</label>
-                    <textarea class="form-control" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+            </div>
+            
+            
         </div>
     </div>
 </div>

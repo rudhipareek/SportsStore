@@ -1,5 +1,5 @@
 {% extends "home/base.html" %}
-
+{% load static %}
 {% block content %}
 <!-- Hero Section with Gradient Background and Parallax Effect -->
 <div class="hero-section position-relative overflow-hidden text-white">
@@ -29,7 +29,7 @@
         <div class="col-md-4">
             <div class="category-card">
                 <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
-                    <img src="https://source.unsplash.com/600x400/?gym,equipment" class="img-fluid category-img" alt="Gym Equipment">
+                    <img src="{% static 'images/gym_equipment.jpg' %}" class="img-fluid category-img w-100" alt="Gym Equipment">
                     <div class="category-overlay d-flex align-items-center justify-content-center">
                         <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
                     </div>
@@ -41,7 +41,7 @@
         <div class="col-md-4">
             <div class="category-card">
                 <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
-                    <img src="https://source.unsplash.com/600x400/?sportswear,athletic" class="img-fluid category-img" alt="Clothing">
+                    <img src="{% static 'images/sportswear.jpg' %}" class="img-fluid category-img w-100" alt="Clothing">
                     <div class="category-overlay d-flex align-items-center justify-content-center">
                         <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
                     </div>
@@ -53,7 +53,7 @@
         <div class="col-md-4">
             <div class="category-card">
                 <div class="overflow-hidden rounded-4 mb-3 shadow-sm">
-                    <img src="https://source.unsplash.com/600x400/?running,shoes" class="img-fluid category-img" alt="Shoes">
+                    <img src="{% static 'images/athletic_footwear.jpg' %}" class="img-fluid category-img " alt="Shoes">
                     <div class="category-overlay d-flex align-items-center justify-content-center">
                         <a href="{% url 'product_list' %}" class="btn btn-light rounded-pill px-4">View Collection</a>
                     </div>
@@ -113,6 +113,9 @@
     
     .category-img {
         transition: transform 0.5s ease;
+        width: 100%;  /* Ensure full width */
+        height: 250px; /* Set a fixed height for consistency */
+        object-fit: cover; /* Crop the image to fit without distortion */
     }
     
     .category-card:hover .category-img {
@@ -128,8 +131,14 @@
         background: rgba(0, 86, 179, 0.4);
         opacity: 0;
         transition: opacity 0.3s ease;
+        border-radius: 8px; /* Ensures rounded corners match the image */
+        overflow: hidden;
     }
-    
+     
+    .overflow-hidden {
+    position: relative;
+    }
+
     .category-card:hover .category-overlay {
         opacity: 1;
     }

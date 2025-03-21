@@ -4,68 +4,186 @@
 
 {% block content %}
     <style>
+        /* Modern Loading Animation */
         .loader {
-            border: 4px solid #f3f3f3;
+            border: 4px solid rgba(240, 240, 240, 0.8);
             border-top: 4px solid #3498db;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.2s linear infinite;
+            margin: 30px auto;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Container Styling */
+        .order-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        /* Processing State */
+        #loadingScreen {
+            padding: 30px 0;
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        /* Confirmation State */
         .confirmation {
             display: none;
+            opacity: 0;
         }
-        h2 {
+        
+        .success-icon {
+            font-size: 60px;
             color: #27ae60;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
         .order-details {
             font-size: 16px;
             color: #555;
-            margin-bottom: 10px;
+            line-height: 1.6;
+            margin-bottom: 8px;
         }
+        
+        .order-id {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px auto;
+            width: 80%;
+        }
+        
+        /* Buttons */
+        .btn-group {
+            margin-top: 30px;
+        }
+        
         .btn {
             background: #3498db;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 4px;
             display: inline-block;
-            margin-top: 15px;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
         }
+        
         .btn:hover {
             background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+        
         .notice {
             font-size: 12px;
-            color: #777;
-            margin-top: 15px;
+            color: #999;
+            margin-top: 25px;
+            font-style: italic;
         }
     </style>
 
-    <div id="loadingScreen">
-        <p class="loading">Processing your order... Please wait.</p>
-        <div class="loader"></div>
-    </div>
+    <div class="order-container">
+        <div id="loadingScreen">
+            <p class="loading-text">Processing your order...</p>
+            <div class="loader"></div>
+        </div>
 
-    <div id="confirmationScreen" class="confirmation">
-        <h2>✅ Order Confirmed!</h2>
-        <p class="order-details">Your order #{{ order_id }} has been successfully placed.</p>
-        <p class="order-details">Estimated delivery: 5-7 business days.</p>
-        <p class="order-details">A confirmation email has been sent to your registered email.</p>
-        <a href="{% url 'product_list' %}" class="btn">Continue Shopping</a>
-        <p class="notice">(This is a demo website. No actual orders have been placed.)</p>
+        <div id="confirmationScreen" class="confirmation">
+            <div class="success-icon">✅</div>
+            <h2>Order Confirmed!</h2>
+            <p class="order-details">Your order <span class="order-id" id="dynamicOrderId">#{{ order_id }}</span> has been successfully placed.</p>
+            <p class="order-details">Estimated delivery: <strong>5-7 business days</strong>.</p>
+            <p class="order-details">A confirmation email has been sent to your registered email address.</p>
+            
+            <div class="divider"></div>
+            
+            <div class="btn-group">
+                <a href="{% url 'product_list' %}" class="btn">Continue Shopping</a>
+                
+            </div>
+            
+            <p class="notice">This is a demo website. No actual orders have been placed.</p>
+        </div>
     </div>
 
     <script>
+        // Generate a random order number if not provided from backend
+        function generateOrderNumber() {
+            const timestamp = new Date().getTime().toString().slice(-6);
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return "MS" + timestamp + random;
+        }
+        
+        // Update the order ID if needed
+        const backendOrderId = "{{ order_id }}";
+        if (backendOrderId === "" || backendOrderId === "123456") {
+            // If no real order ID is passed, generate one dynamically
+            document.getElementById("dynamicOrderId").textContent = "#" + generateOrderNumber();
+        }
+        
+        // Simulate order processing with a smoother transition
         setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-            document.getElementById('confirmationScreen').style.display = 'block';
+            const loadingScreen = document.getElementById('loadingScreen');
+            const confirmationScreen = document.getElementById('confirmationScreen');
+            
+            // Fade out loading screen
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.5s ease';
+            
+            // Show confirmation after transition
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                confirmationScreen.style.display = 'block';
+                
+                // Fade in confirmation screen
+                setTimeout(() => {
+                    confirmationScreen.style.opacity = '1';
+                    confirmationScreen.style.transition = 'opacity 0.5s ease';
+                }, 50);
+            }, 500);
         }, 2500); // Simulates order processing time
     </script>
 {% endblock %}

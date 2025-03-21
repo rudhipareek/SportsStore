@@ -7,3 +7,4 @@ urlpatterns = [
     path('<str:category>/', product_list, name='product_list_by_category')
 ]
 
+

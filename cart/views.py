@@ -59,8 +59,23 @@ def update_cart(request, product_id):
 
     return redirect('cart:view_cart')  # Redirect back to cart page
 
+import random
+import string
+import datetime
+
 def order_confirmation(request):
-    order_id = "123456"
-    return render(request, 'cart/order-confirmation.html', {'order_id': order_id})
+    # Generate a unique order ID with format: MS + YYMMDD + random 4-digit number
+    today = datetime.datetime.now()
+    date_part = today.strftime('%y%m%d')
+    random_part = ''.join(random.choices(string.digits, k=4))
+    order_id = f"MS{date_part}{random_part}"
+    
+    # Additional context data can be added here
+    context = {
+        'order_id': order_id,
+        # Add other order details as needed
+    }
+    
+    return render(request, 'cart/order-confirmation.html', context)
 
 

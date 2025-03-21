@@ -1,3 +1,5 @@
+# images added manually
+
 import os
 import sys
 import django

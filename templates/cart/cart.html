@@ -14,7 +14,7 @@
                         <h5 class="card-title">{{ item.product.name }}</h5>
                         <p class="card-text text-primary fw-bold">₹{{ item.product.price }}</p>
                         
-                        <!-- Quantity Control -->
+                        <!-- Quantity_Control -->
                         <div class="d-flex align-items-center mb-3">
                             <form action="{% url 'cart:update_cart' item.product.id %}" method="post" class="d-inline">
                                 {% csrf_token %}

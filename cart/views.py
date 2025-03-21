@@ -73,7 +73,7 @@ def order_confirmation(request):
     # Additional context data can be added here
     context = {
         'order_id': order_id,
-        # Add other order details as needed
+        
     }
     
     return render(request, 'cart/order-confirmation.html', context)

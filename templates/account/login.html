@@ -10,6 +10,8 @@
         --bg-color: #f5f7fa;
         --card-bg: #ffffff;
         --shadow: 0 10px 30px rgba(58, 109, 240, 0.08);
+        --error-bg: #ffeaea;
+        --error-text: #e53935;
     }
 
     body {
@@ -159,6 +161,28 @@
         text-decoration: none;
         font-weight: 500;
     }
+    
+    /* Error message styling - improved */
+    .error-container {
+        background-color: var(--error-bg);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 25px;
+        color: var(--error-text);
+        font-size: 14px;
+        font-weight: 500;
+        border-left: 4px solid var(--error-text);
+    }
+    
+    .error-container p {
+        margin: 5px 0;
+    }
+    
+    .error-icon {
+        display: inline-block;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
 </style>
 
 <div class="login-wrapper">
@@ -167,6 +191,32 @@
             <h1>Welcome Back</h1>
             <p>Please enter your credentials to access your account</p>
         </div>
+        
+        <!-- Improved error message display -->
+        {% if form.errors or messages %}
+        <div class="error-container">
+            <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% elif messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% else %}
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endif %}
         
         <form method="post">
             {% csrf_token %}

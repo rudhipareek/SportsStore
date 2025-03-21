@@ -170,3 +170,16 @@ ACCOUNT_EMAIL_VERIFICATION="mandatory"
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE=True
 
 
+# Custom allauth error messages
+ACCOUNT_EMAIL_UNKNOWN_USERNAME = "No account exists with this email. Please create an account."
+ACCOUNT_UNKNOWN_USERNAME = "No account exists with this username. Please create an account."
+ACCOUNT_AUTHENTICATION_ERROR = "Invalid credentials. Check username and password and try again."
+
+
+ACCOUNT_FORMS = {
+    'login': 'sportstore.forms.CustomLoginForm',
+    'signup': 'sportstore.forms.CustomSignupForm'
+}
+
+# Make sure Django messages are configured
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

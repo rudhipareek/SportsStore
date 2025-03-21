@@ -181,5 +181,4 @@ ACCOUNT_FORMS = {
     'signup': 'sportstore.forms.CustomSignupForm'
 }
 
-# Make sure Django messages are configured
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

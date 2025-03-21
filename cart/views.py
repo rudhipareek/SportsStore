@@ -57,7 +57,7 @@ def update_cart(request, product_id):
             else:
                 cart_item.delete()  # If quantity reaches 0, remove the item
 
-    return redirect('cart:view_cart')  # Redirect back to cart page
+    return redirect('cart:view_cart') 
 
 import random
 import string

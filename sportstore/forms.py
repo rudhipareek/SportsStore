@@ -15,12 +15,11 @@ class CustomLoginForm(LoginForm):
                          User.objects.filter(email=username).exists()
             
             if not user_exists:
-                # User doesn't exist - show the "no account exists" message
                 raise forms.ValidationError(
                     "No account exists with this username. Please create an account."
                 )
         
-        # If we get here, try to authenticate normally
+        
         try:
             return super().clean()
         except forms.ValidationError as e:

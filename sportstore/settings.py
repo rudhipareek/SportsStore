@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import dotenv
-dotenv.load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&bnwuo76&7rnsn$$7s5xh!05saz02g_uskni^v_c#ij8#_(ubn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://1ed4-103-97-165-13.ngrok-free.app"]
 
 # Application definition
 
@@ -40,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
-    #'users',
-    #'orders',
     'home',
     'cart',
 
@@ -65,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'sportstore.urls'
@@ -149,9 +147,25 @@ import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#if DEBUG:
+#    STATIC_URL = '/static/'
+#    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#else:
+#    STATIC_URL = '/assets/'
+#    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'media')]
 
+
+if DEBUG:
+    STATIC_URL = '/assets/'  # Use the default static URL for development
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'templates/assets/')
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+    
+else:
+    STATIC_URL = '/assets/'  # Use a different URL for serving static files in production
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
